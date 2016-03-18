@@ -1,0 +1,22 @@
+{
+  "name": "mtsp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/DrkSephy/mtsp",
+  "authors": [
+    "DrkSephy <dleonar00@citymail.cuny.edu>"
+  ],
+  "description": "Multiple Traveling Salesperson implemented with JavaScript",
+  "main": "js/main.js",
+  "keywords": [
+    "Artificial",
+    "Intelligence",
+    "Traveling",
+    "Salesperson",
+    "JavaScript"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.2.2",
+    "bootstrap": "~3.3.6"
+  }
+}
