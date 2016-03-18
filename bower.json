@@ -16,7 +16,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "jquery": "~2.2.2",
-    "bootstrap": "~3.3.6"
+    "jquery": "~2.2.2"
   }
 }
