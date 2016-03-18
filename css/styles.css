@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
+}
+
+canvas {
+  background-color: #ffb2ae;
+  border: 1px solid #f4f4f4;
+  height: 500px;
+  width: 500px;
+}
+
+.container {
+  text-align: center;
+  margin: 10px 0 0 0;
+}
+
+.column {
+  float: right;
+  margin: 0 20px 0 20px;
+  text-align: left;
+  line-height: 20px;
+}
+
+.card {
+  width: 300px;
+  margin: 10px;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  color: #4c4c4c;
+  font-size: 14px;
+  background: #ffffff;
+}
+
+.card-container {
+  border: 1px solid #ffb2ae;
+  padding: 10px;
+}
+
+.card-label {
+  margin: 0 0 10px 0;
+  border-bottom: 1px solid #ffb2ae;
+  width: 100%;
+}
