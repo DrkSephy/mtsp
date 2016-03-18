@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>MTSP</title>
+  <link rel='stylesheet' href='css/styles.css'>
+  <script src='bower_components/jquery/dist/jquery.min.js'></script>
+</head>
+<body>
+  <div class='container'>
+    <canvas id='grid'></canvas>
+
+    <div class='column'>
+
+      <!-- Simulation Status -->
+      <div class='card'>
+        <div class='card-container'>
+          <div class='card-body'>
+            <div id='simulation-label'>Simulation: 
+              <span id='simulation-pause'>Running</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time Elapsed -->
+      <div class='card'>
+        <div class='card-container'>
+          <div class='card-label'>Time Elapsed</div>
+          <div class='card-body'>
+            <div id='time-elapsed-label'>Time: 
+              <span id='simulation-time'>0 Seconds</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Population Size -->
+      <div class='card'>
+        <div class='card-container'>
+          <div class='card-label'>Population Size</div>
+          <div class='card-body'>
+            <div id='population-label'>Population: 
+              <span id='simulation-population'>0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generations Formed -->
+      <div class='card'>
+        <div class='card-container'>
+          <div class='card-label'>Generations Formed</div>
+          <div class='card-body'>
+            <div id='generations-formed-label'>Generations: 
+              <span id='simulation-generation'>0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Best optimal route so far -->
+      <div class='card'>
+        <div class='card-container'>
+          <div class='card-label'>Current Optimal Cost</div>
+          <div class='card-body'>
+            <div id='best-optimal-label'>Cost: 
+              <span id='simulation-best-optimal'>0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current cost -->
+      <div class='card'>
+        <div class='card-container'>
+          <div class='card-label'>Current Cost</div>
+          <div class='card-body'>
+            <div id='current-cost-label'>Cost: 
+              <span id='simulation-cost'>0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src='js/bundle.js'></script>
+</body>
+</html>
