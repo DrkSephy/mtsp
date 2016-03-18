@@ -1,0 +1,31 @@
+{
+  "name": "mtsp",
+  "version": "1.0.0",
+  "description": "Multiple Traveling Salesperson implemented with JavaScript",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DrkSephy/mtsp.git"
+  },
+  "keywords": [
+    "traveling",
+    "salesman",
+    "np-hard",
+    "artificial",
+    "intelligence"
+  ],
+  "author": "David Leonard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DrkSephy/mtsp/issues"
+  },
+  "homepage": "https://github.com/DrkSephy/mtsp",
+  "dependencies": {
+    "babel-core": "^6.7.2",
+    "babel-loader": "^6.2.4",
+    "webpack": "^1.12.14"
+  }
+}
