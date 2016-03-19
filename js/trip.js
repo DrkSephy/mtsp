@@ -1,14 +1,15 @@
 class Trip {
   /**
    * Create a trip.
-   * @param {array} path - The list of cities traveled to.
+   * @param {array} destinations - Instance of Destinations class.
    * @param {number} fitness - The fitness of the trip.
    * @param {number} distance - The distance traveled on the trip.
   */
-  constructor(path, fitness, distance) {
-    this.path = path;
-    this.fitness = fitness;
-    this.distance = distance;
+  constructor(destinations, tour=null) {
+    this.destinations = destinations;
+    this.trip = [];
+    this.fitness = 0;
+    this.distance = 0;
   }
 
   /**
@@ -17,7 +18,7 @@ class Trip {
    * @returns {object} undefined - The city at given index.
   */
   getCity(index) {
-    return this.path[index];
+    return this.trip[index];
   }
 
   /**
@@ -27,7 +28,7 @@ class Trip {
    * @returns {undefined}
   */
   setCity(index, city) {
-    this.path[index] = city;
+    this.trip[index] = city;
     this.fitness = 0;
     this.distance = 0;
   }
