@@ -4,7 +4,7 @@
   "description": "Multiple Traveling Salesperson implemented with JavaScript",
   "main": "js/main.js",
   "scripts": {
-    "watch": "webpack --watch"
+    "watch": "webpack --watch -d"
   },
   "repository": {
     "type": "git",
