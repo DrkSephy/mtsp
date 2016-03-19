@@ -1,5 +1,7 @@
 'use strict';
 
+import {shuffleArray} from './utils.js';
+
 class Trip {
   /**
    * Create a trip.
@@ -64,6 +66,17 @@ class Trip {
       separator += this.getCity(i) + '|';
     }
     return separator;
+  }
+
+  /**
+   * Generates a randomized trip.
+   * @returns {undefined} Shuffles internal class trip.
+  */
+  generateTrip() {
+    for(var cityIndex = 0; cityIndex < this.destinations.numberOfDestinations(); cityIndex++) {
+      this.setCity(cityIndex, this.destinations.getCity(cityIndex));
+    }
+    shuffleArray(this.trip);
   }
 }
 
