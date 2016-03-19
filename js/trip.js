@@ -1,3 +1,5 @@
+'use strict';
+
 class Trip {
   /**
    * Create a trip.
@@ -42,6 +44,14 @@ class Trip {
       this.fitness = 1 / this.getDistance();
     }
     return this.fitness;
+  }
+
+  /**
+   * Returns the length of the current trip.
+   * @returns {number} The number of cities in the current trip.
+  */
+  getTripSize() {
+    return this.trip.length;
   }
 }
 
