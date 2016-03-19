@@ -40,11 +40,19 @@ class Population {
   */
   getFittest() {
     let fittest = this.trips[0];
-    for(var i = 0; i < this.size; i++) {
+    for(var i = 0; i < this.populationSize(); i++) {
       if (fittest.computeFitness() <= this.getTrip(i).computeFitness()) {
         fittest = this.getTrip(i);
       }
     }
     return fittest;
+  }
+
+  /**
+   * Returns the number of trips in our population.
+   * @returns {number} The number of individuals in the population.
+  */
+  populationSize() {
+    return this.trips.length;
   }
 }
