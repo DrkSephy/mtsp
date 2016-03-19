@@ -1,4 +1,4 @@
-class Trip {
+class Destinations {
   /**
    * Store the list of destination cities.
    * @param {array} path - List of cities we can travel to.
@@ -34,4 +34,4 @@ class Trip {
   }
 }
 
-export default Trip;
+export default Destinations;
