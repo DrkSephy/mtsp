@@ -18,7 +18,7 @@ class Genetic {
    * @returns {array} newPopulation - The new generation of individuals.
   */
   evolvePopulation(population) {
-    let newPopulation = Population(this.destinations, population.populationSize(), false);
+    let newPopulation = new Population(this.destinations, population.populationSize(), false);
     let elitismOffset = 0;
     if (this.elitism) {
       newPopulation.saveTrip(0, population.getFittest());
@@ -88,6 +88,22 @@ class Genetic {
         trip.setCity(splice, city1);
         trip.setCity(i, city2);
       }
+    }
+  }
+
+  /**
+   * Tournament Selection for selecting fittest individual for next generation.
+   * @param {array} population - Instance of Population class.
+   * @returns {array} fittest - The fittest individual trip from the tournament.
+  */
+  tournamentSelection(population) {
+    let tournament = new Population(this.destinations, this.tournamentSize, False);
+    for (var i = 0; i <= this.tournamentSize; i++) {
+      let random = Math.floor(Math.random() * population.populationSize());
+      tournament.saveTrip(i, population.getTrip(random));
+    let fittest = tournament.getFittest();
+    
+    return fittest;
     }
   }
 }
