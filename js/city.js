@@ -41,8 +41,8 @@ class City {
    * @returns {number} The euclidean distance from this city to the given city.
   */
   euclideanDistance(city) {
-    const dx = this.x - b.x;
-    const dy = this.y - b.y;
+    const dx = this.x - city.x;
+    const dy = this.y - city.y;
     return Math.sqrt(dx * dx + dy * dy);
   }
 
