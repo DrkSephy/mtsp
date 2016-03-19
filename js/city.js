@@ -43,7 +43,7 @@ class City {
   euclideanDistance(city) {
     const dx = this.x - b.x;
     const dy = this.y - b.y;
-    return Math.sqrt(dx*dx + dy*dy);
+    return Math.sqrt(dx * dx + dy * dy);
   }
 
   /**
@@ -54,3 +54,5 @@ class City {
     console.log(this.x + ', ' + this.y);
   }
 }
+
+export default City;
