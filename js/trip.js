@@ -9,7 +9,7 @@ class Trip {
    * @param {number} fitness - The fitness of the trip.
    * @param {number} distance - The distance traveled on the trip.
   */
-  constructor(destinations, tour=null) {
+  constructor(destinations) {
     this.destinations = destinations;
     this.trip = [];
     this.fitness = 0;
@@ -86,6 +86,31 @@ class Trip {
   */
   containsCity(city) {
     return containsObject(city, this.trip);
+  }
+
+  /**
+   * Computes the total distance of the trip.
+   * @returns {number} The distance of the entire trip.
+  */
+  computeDistance() {
+    if (this.distance == 0) {
+      let tripDistance = 0;
+      for(var cityIndex = 0; cityIndex < this.getTripSize(); cityIndex++) {
+        let fromCity = this.getCity(cityIndex);
+        let destinationCity = null;
+        // Get the next destination city if within bounds
+        if (cityIndex + 1 < this.getTripSize()) {
+          destinationCity = this.getCity(cityIndex + 1);
+        }
+        // Return to starting position to complete the trip
+        else {
+          destinationCity = this.getCity(0);
+        }
+        tripDistance += fromCity.euclideanDistance(destinationCity);
+      }
+      this.distance = tripDistance;
+    }
+    return this.distance;
   }
 }
 
