@@ -23,4 +23,13 @@ class Population {
   saveTrip(key, value) {
     this.tours[key] = value;
   }
+
+  /**
+   * Gets a trip from our population.
+   * @param {number} index - The individual to get from the population.
+   * @returns {array} The trip from the population.
+  */
+  getTrip(index) {
+    return this.trips[index];
+  }
 }
