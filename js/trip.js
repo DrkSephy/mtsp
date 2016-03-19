@@ -53,6 +53,18 @@ class Trip {
   getTripSize() {
     return this.trip.length;
   }
+
+  /**
+   * Prints the optimal trip.
+   * @returns {string} The string representation of cities in trip. 
+  */
+  printTrip() {
+    let separator = '|';
+    for(var i = 0; i < this.getTripSize(); i++) {
+      separator += this.getCity(i) + '|';
+    }
+    return separator;
+  }
 }
 
 export default Trip;
