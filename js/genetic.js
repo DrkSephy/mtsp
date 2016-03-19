@@ -1,3 +1,6 @@
+import Trip from './trip.js';
+import Population from './population.js';
+
 'use strict';
 
 class Genetic {
@@ -97,14 +100,13 @@ class Genetic {
    * @returns {array} fittest - The fittest individual trip from the tournament.
   */
   tournamentSelection(population) {
-    let tournament = new Population(this.destinations, this.tournamentSize, False);
+    let tournament = new Population(this.destinations, this.tournamentSize, false);
     for (var i = 0; i <= this.tournamentSize; i++) {
       let random = Math.floor(Math.random() * population.populationSize());
       tournament.saveTrip(i, population.getTrip(random));
-    let fittest = tournament.getFittest();
-    
-    return fittest;
     }
+    let fittest = tournament.getFittest();
+    return fittest;
   }
 }
 
