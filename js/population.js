@@ -1,3 +1,5 @@
+import Trip from './trip.js';
+
 'use strict';
 
 class Population {
@@ -10,10 +12,17 @@ class Population {
   constructor(destinations, size, initialize) {
     this.trips = [];
     this.size = size;
-    for (var i = 0; i <= size; i++) {
+    for (var i = 0; i < size; i++) {
       this.trips.push(null);
     }
 
+    if (initialize) {
+      for (var i = 0; i < size; i++) {
+        let newTrip = new Trip(destinations);
+        newTrip.generateTrip();
+        this.saveTrip(i, newTrip)
+      }
+    }
   }
 
   /**
@@ -23,7 +32,7 @@ class Population {
    * @returns {undefined}
   */
   saveTrip(key, value) {
-    this.tours[key] = value;
+    this.trips[key] = value;
   }
 
   /**
@@ -57,3 +66,5 @@ class Population {
     return this.trips.length;
   }
 }
+
+export default Population;
