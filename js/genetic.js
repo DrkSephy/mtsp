@@ -39,6 +39,12 @@ class Genetic {
     return newPopulation;
   }
 
+  /**
+   * Generates a new child from two parents.
+   * @param {array} parent1 - Instance of Trip class.
+   * @param {array} parent2 - Instance of Trip class.
+   * @returns {array} child - The new child trip.
+  */
   crossover(parent1, parent2) {
     let child = new Trip(this.destinations);
     let startPosition = Math.floor(Math.random() * parent1.getTripSize());
@@ -68,4 +74,22 @@ class Genetic {
 
     return child;
   }
+
+  /**
+   * Random mutates a trip, swaps positions of two locations in trip.
+   * @param {array} trip - Instance of Trip class.
+  */
+  mutate(trip) {
+    for (var i = 0; i < trip.getTripSize(); i++) {
+      if (Math.random() < this.mutationRate) {
+        let splice = Math.floor(trip.getTripSize() * Math.random());
+        let city1  = trip.getCity(i);
+        let city2  = trip.getCity(splice);
+        trip.setCity(splice, city1);
+        trip.setCity(i, city2);
+      }
+    }
+  }
 }
+
+export default Genetic;
