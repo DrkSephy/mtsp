@@ -9,6 +9,7 @@ class Population {
   */
   constructor(destinations, size, initialize) {
     this.trips = [];
+    this.size = size;
     for(var i = 0; i <= size; i++) {
       this.trips.push(null);
     }
@@ -31,5 +32,19 @@ class Population {
   */
   getTrip(index) {
     return this.trips[index];
+  }
+
+  /**
+   * Computes the fittest individual tour.
+   * @returns {number} fittest - The fitness of the best tour.
+  */
+  getFittest() {
+    let fittest = this.trips[0];
+    for(var i = 0; i < this.size; i++) {
+      if (fittest.computeFitness() <= this.getTrip(i).computeFitness()) {
+        fittest = this.getTrip(i);
+      }
+    }
+    return fittest;
   }
 }
