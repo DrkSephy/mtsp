@@ -1,6 +1,6 @@
 'use strict';
 
-import {shuffleArray} from './utils.js';
+import {shuffleArray, containsObject} from './utils.js';
 
 class Trip {
   /**
@@ -77,6 +77,15 @@ class Trip {
       this.setCity(cityIndex, this.destinations.getCity(cityIndex));
     }
     shuffleArray(this.trip);
+  }
+
+  /**
+   * Checks whether a given city is inside the current trip.
+   * @param {object} city - The city to test inclusion.
+   * @returns {boolean} Whether the city is in the current trip.
+  */
+  containsCity(city) {
+    return containsObject(city, this.trip);
   }
 }
 
