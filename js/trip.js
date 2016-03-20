@@ -9,11 +9,18 @@ class Trip {
    * @param {number} fitness - The fitness of the trip.
    * @param {number} distance - The distance traveled on the trip.
   */
-  constructor(destinations) {
+  constructor(destinations, trip = null) {
     this.destinations = destinations;
     this.trip = [];
     this.fitness = 0;
     this.distance = 0;
+    if (trip != null) {
+      this.trip = trip;
+    } else {
+      for (var i = 0; i < this.destinations.numberOfDestinations(); i++) {
+        this.trip.push(null);
+      }
+    }
   }
 
   /**
@@ -42,8 +49,8 @@ class Trip {
    * @returns {number} fitness - The fitness of the current trip.
   */
   computeFitness() {
-    if (this.fitness === 0) {
-      this.fitness = 1 / this.getDistance();
+    if (this.fitness == 0) {
+      this.fitness = 1 / this.computeDistance();
     }
     return this.fitness;
   }
@@ -110,6 +117,7 @@ class Trip {
       }
       this.distance = tripDistance;
     }
+
     return this.distance;
   }
 }
