@@ -15,7 +15,6 @@ class Population {
     for (var i = 0; i < size; i++) {
       this.trips.push(null);
     }
-
     if (initialize) {
       for (var i = 0; i < size; i++) {
         let newTrip = new Trip(destinations);
