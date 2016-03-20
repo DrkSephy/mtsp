@@ -1,10 +1,14 @@
+/**
+ * Stores all destination cities.
+*/
+
 class Destinations {
   /**
    * Store the list of destination cities.
    * @param {array} path - List of cities we can travel to.
   */
-  constructor(destinations) {
-    this.destinations = destinations;
+  constructor() {
+    this.destinations = [];
   }
 
   /**
