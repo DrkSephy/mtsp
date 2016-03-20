@@ -1,5 +1,6 @@
 import Trip from './trip.js';
 import Population from './population.js';
+import {containsObject} from './utils.js';
 
 'use strict';
 
@@ -52,27 +53,33 @@ class Genetic {
     let child = new Trip(this.destinations);
     let startPosition = Math.floor(Math.random() * parent1.getTripSize());
     let endPosition   = Math.floor(Math.random() * parent2.getTripSize());
+    let cities = [];
+
+    for (var x = 0; x < child.getTripSize(); x++) {
+      cities.push(null);
+    }
 
     for (var i = 0; i < child.getTripSize(); i++) {
-      if (startPosition < endPosition && i > startPosition && i < endPosition){
-        child.setCity(i, parent1.getCity(i));
+      if ((startPosition < endPosition) && (i > startPosition) && (i < endPosition)) {
+        cities[i] = parent1.getCity(i);
       }
 
       else if (startPosition > endPosition) {
         if (!(i < startPosition && i > endPosition)) {
-          child.setCity(i, parent1.getCity(i));
+          cities[i] = parent1.getCity(i);
         }
       }
     }
 
     for (var i = 0; i < parent2.getTripSize(); i++) {
-      if (!child.containsCity(parent2.getCity(i))) {
-        for (var j = 0; j < child.getTripSize(); j++) {
-          if (child.getCity(j) == null) {
-            child.setCity(j, parent2.getCity(i));
-          }
-        }
+      if (!containsObject(cities, parent2.getCity(i))) {
+        cities[i] = parent2.getCity(i);
       }
+    }
+
+    // Copy all cities into the child
+    for (var i = 0; i < child.getTripSize(); i++) {
+      child.setCity(i, cities[i]);
     }
 
     return child;
@@ -101,7 +108,7 @@ class Genetic {
   */
   tournamentSelection(population) {
     let tournament = new Population(this.destinations, this.tournamentSize, false);
-    for (var i = 0; i <= this.tournamentSize; i++) {
+    for (var i = 0; i < this.tournamentSize; i++) {
       let random = Math.floor(Math.random() * population.populationSize());
       tournament.saveTrip(i, population.getTrip(random));
     }
