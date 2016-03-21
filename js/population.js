@@ -1,6 +1,6 @@
-import Trip from './trip.js';
-
 'use strict';
+
+import Trip from './trip.js';
 
 class Population {
   /**

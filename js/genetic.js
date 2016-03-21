@@ -1,8 +1,8 @@
+'use strict';
+
 import Trip from './trip.js';
 import Population from './population.js';
 import {containsObject} from './utils.js';
-
-'use strict';
 
 class Genetic {
   /**
