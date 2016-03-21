@@ -22,8 +22,17 @@ class Stats {
   /**
    * Increments time property by 1.
   */
-  incrementTime() {
-    this.time++;
+  incrementTime(value) {
+    this.time += value;
+  }
+
+  showTime() {
+    let timeLabel = document.getElementById('simulation-time');
+    if (this.getTime() % 1 === 0) {
+      timeLabel.textContent = this.getTime() + '.0 Seconds';
+    } else {
+      timeLabel.textContent = this.getTime() + ' Seconds';
+    }
   }
 
   /**
@@ -57,3 +66,5 @@ class Stats {
     return this.optimalDistance;
   }
 }
+
+export default Stats;
