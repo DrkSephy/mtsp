@@ -9,6 +9,7 @@ class Stats {
     this.generations = 0;
     this.startingDistance = 0;
     this.optimalDistance = 0;
+    this.currentDistance = 0;
   }
 
   /**
@@ -62,11 +63,19 @@ class Stats {
   }
 
   /**
-   * Gets the starting distance property of Stats.
+   * Gets the startingDistance property of Stats.
    * @returns {number} The starting distance of the simulation.
   */
   getStartingDistance() {
     return this.startingDistance;
+  }
+
+  /**
+   * Sets the currentDistance property of Stats.
+   * @param {number} value - The current distance of the population.
+  */
+  setCurrentDistance(value) {
+    this.currentDistance = value;
   }
 
   /**
