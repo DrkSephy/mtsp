@@ -25,4 +25,19 @@ class Stats {
   incrementTime() {
     this.time++;
   }
+
+  /**
+   * Gets the generations property of Stats.
+   * @returns {number} Total number of generations formed during simulation.
+  */
+  getGenerations() {
+    return this.generations;
+  }
+
+  /**
+   * Increments generations property by 1.
+  */
+  incrementGenerations() {
+    this.generations++;
+  }
 }
