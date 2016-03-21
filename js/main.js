@@ -64,55 +64,48 @@ let population = new Population(destinations, 50, true);
 // console.log(population);
 console.log('Initial Distance: ' + population.getFittest().computeDistance());
 
-for (var i = 0; i < population.populationSize(); i++) {
-
-  setTimeout(function() {
-    draw.clearCanvas();
-  }, 100 * i);
-
-  for (var destination = 0; destination < destinations.numberOfDestinations(); destination++) {
-    let x = destinations.getCity(destination).x;
-    let y = destinations.getCity(destination).y;
-    setTimeout(function() {
-      draw.drawPoint(x, y);
-    }, 100 * i);
-  }
-  
-  for (var destination = 0; destination < population.getTrip(i).getTripSize(); destination++) {
-    // console.log(population.getTrip(i).getCity(destination));
-    let x = population.getTrip(i).getCity(destination).x;
-    let y = population.getTrip(i).getCity(destination).y;
-    if (destination + 1 < population.getTrip(i).getTripSize()) {
-      let toX = population.getTrip(i).getCity(destination + 1).x;
-      let toY = population.getTrip(i).getCity(destination + 1).y;
-      setTimeout(function() {
-        draw.drawLine(x, y, toX, toY);
-      }, 100 * i);
-    } else {
-      let toX = population.getTrip(i).getCity(0).x;
-      let toY = population.getTrip(i).getCity(0).y;
-      setTimeout(function() {
-        draw.drawLine(x, y, toX, toY);
-      }, 100 * i);
-    }
-  }
-}
-
-
 // Instantiate Genetic Algorithm
 let ga = new Genetic(destinations);
 population = ga.evolvePopulation(population);
-// console.log('New distance for the new population: ' + population.getFittest().computeDistance());
 
-// // Evolve over 100 generations
-for (var i = 0; i <= 100; i++) {
-  population = ga.evolvePopulation(population);
+// Evolve over 100 generations
+for (var x = 0; x <= 100; x++) {
+  (function(i) {
+    setTimeout(function() {
+      population = ga.evolvePopulation(population);
+      console.log('Best distance: ' + population.getFittest().computeDistance());
+    }, 500 * i);
+
+    for (var j = 0; j < population.populationSize(); j++) {
+      setTimeout(function() {
+        draw.clearCanvas();
+      }, 500 * i);
+
+      for (var destination = 0; destination < destinations.numberOfDestinations(); destination++) {
+        let x = destinations.getCity(destination).x;
+        let y = destinations.getCity(destination).y;
+        setTimeout(function() {
+          draw.drawPoint(x, y);
+        }, 500 * i);
+      }
+
+      for (var destination = 0; destination < population.getTrip(j).getTripSize(); destination++) {
+        let x = population.getTrip(j).getCity(destination).x;
+        let y = population.getTrip(j).getCity(destination).y;
+        if (destination + 1 < population.getTrip(j).getTripSize()) {
+          let toX = population.getTrip(j).getCity(destination + 1).x;
+          let toY = population.getTrip(j).getCity(destination + 1).y;
+          setTimeout(function() {
+            draw.drawLine(x, y, toX, toY);
+          }, 500 * i);
+        } else {
+          let toX = population.getTrip(j).getCity(0).x;
+          let toY = population.getTrip(j).getCity(0).y;
+          setTimeout(function() {
+            draw.drawLine(x, y, toX, toY);
+          }, 500 * i);
+        }
+      }
+    }
+  })(x);
 }
-
-// console.log('Final Distance: ' + population.getFittest().computeDistance());
-// console.log('Solution: ');
-// console.log(population.getFittest());
-
-
-
-
