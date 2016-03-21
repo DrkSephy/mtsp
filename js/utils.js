@@ -44,3 +44,22 @@ export function containsObject(obj, array) {
   }
   return false;
 }
+
+export function generateUniqueNumbers(length) {
+  let arr = [];
+  while (arr.length < length) {
+    const randomNumber = Math.ceil(Math.random() * 150);
+    let found = false;
+    for (var j = 0; j < arr.length; j++) {
+      if (arr[j] == randomNumber) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      arr[arr.length] = randomNumber;
+    }
+  }
+
+  return arr;
+}
