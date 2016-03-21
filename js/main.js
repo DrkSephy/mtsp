@@ -3,6 +3,7 @@
 import Draw from './draw.js';
 import Trip from './trip.js';
 import City from './city.js';
+import Stats from './stats.js';
 import Genetic from './genetic.js';
 import Population from './population.js';
 import Simulation from './simulation.js';
@@ -53,16 +54,21 @@ destinations.addCity(city19)
 let city20 = new City(160, 20)
 destinations.addCity(city20);
 
+// Setup Simulation class and event handlers
 let simulation = new Simulation();
 simulation.attachEventListners();
 
+// Initialize Draw class
 let draw = new Draw();
+
+// Initialize Stats class
+let stats = new Stats();
 
 // Generate the initial population
 let population = new Population(destinations, 50, true);
-
+stats.startingDistance = population.getFittest().computeDistance();
 // console.log(population);
-console.log('Initial Distance: ' + population.getFittest().computeDistance());
+// console.log('Initial Distance: ' + population.getFittest().computeDistance());
 
 // Instantiate Genetic Algorithm
 let ga = new Genetic(destinations);
@@ -70,23 +76,25 @@ population = ga.evolvePopulation(population);
 
 // Evolve over 100 generations
 for (var x = 0; x <= 100; x++) {
-  (function(i) {
+  (function(delay) {
     setTimeout(function() {
       population = ga.evolvePopulation(population);
       console.log('Best distance: ' + population.getFittest().computeDistance());
-    }, 500 * i);
+      stats.incrementTime(0.5);
+      stats.showTime();
+    }, 500 * delay);
 
     for (var j = 0; j < population.populationSize(); j++) {
       setTimeout(function() {
         draw.clearCanvas();
-      }, 500 * i);
+      }, 500 * delay);
 
       for (var destination = 0; destination < destinations.numberOfDestinations(); destination++) {
         let x = destinations.getCity(destination).x;
         let y = destinations.getCity(destination).y;
         setTimeout(function() {
           draw.drawPoint(x, y);
-        }, 500 * i);
+        }, 500 * delay);
       }
 
       for (var destination = 0; destination < population.getTrip(j).getTripSize(); destination++) {
@@ -97,13 +105,13 @@ for (var x = 0; x <= 100; x++) {
           let toY = population.getTrip(j).getCity(destination + 1).y;
           setTimeout(function() {
             draw.drawLine(x, y, toX, toY);
-          }, 500 * i);
+          }, 500 * delay);
         } else {
           let toX = population.getTrip(j).getCity(0).x;
           let toY = population.getTrip(j).getCity(0).y;
           setTimeout(function() {
             draw.drawLine(x, y, toX, toY);
-          }, 500 * i);
+          }, 500 * delay);
         }
       }
     }
