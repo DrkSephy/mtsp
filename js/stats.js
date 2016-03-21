@@ -71,11 +71,32 @@ class Stats {
   }
 
   /**
+   * Sets the startingDistance property of Stats.
+   * @param {number} value - The distance value to set.
+  */
+  setStartingDistance(value) {
+    this.startingDistance = value;
+  }
+
+  showStartingDistance() {
+    let startingDistanceLabel = document.getElementById('simulation-cost');
+    startingDistanceLabel.textContent = this.getStartingDistance();
+  }
+
+  /**
    * Sets the currentDistance property of Stats.
-   * @param {number} value - The current distance of the population.
+   * @param {number} value - The current distance of the trip.
   */
   setCurrentDistance(value) {
     this.currentDistance = value;
+  }
+
+  /**
+   * Gets the currentDistance property of Stats.
+   * @returns {number} The current distance of the trip.
+  */
+  getCurrentDistance() {
+    return this.currentDistance;
   }
 
   /**
@@ -84,6 +105,24 @@ class Stats {
   */
   getOptimalDistance() {
     return this.optimalDistance;
+  }
+
+  /**
+   * Sets the current optimal distance = starting distance for the simulation.
+  */
+  setOptimalDistance() {
+    this.optimalDistance = this.getStartingDistance();
+  }
+
+  computeOptimalDistance() {
+    if (this.getCurrentDistance() < this.getOptimalDistance()) {
+      this.optimalDistance = this.getCurrentDistance();
+    }
+  }
+
+  showOptimalDistance() {
+    let optimalDistanceLabel = document.getElementById('simulation-optimal');
+    optimalDistanceLabel.textContent = this.getOptimalDistance()
   }
 }
 
