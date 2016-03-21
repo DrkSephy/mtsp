@@ -20,7 +20,13 @@ class Simulation {
    * Toggles pause value of Simulation class.
   */
   togglePause() {
-    this.paused ? this.paused = false : this.paused = true;
+    if (this.paused) {
+      this.showRunning();
+      this.paused = false;
+    } else {
+      this.showPaused();
+      this.paused = true;
+    }
   }
 
   /**
@@ -47,6 +53,22 @@ class Simulation {
   */
   resumeSimulation() {
     this.running = true;
+  }
+
+  /**
+   * Updates Simulation Pause Label to show simulation is running.
+  */
+  showRunning() {
+    let simulationLabel = document.getElementById('simulation-pause');
+    simulationLabel.textContent = 'Running';
+  }
+
+  /**
+   * Updates Simulation Pause Label to show simulation is paused.
+  */
+  showPaused() {
+    let simulationLabel = document.getElementById('simulation-pause');
+    simulationLabel.textContent = 'Paused';
   }
 
   /**
