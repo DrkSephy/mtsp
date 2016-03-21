@@ -48,6 +48,14 @@ class Simulation {
   resumeSimulation() {
     this.running = true;
   }
+
+  /**
+   * Returns running state of simulation.
+   * @returns {boolean} undefined - Whether the simulation is running or not.
+  */
+  isRunning() {
+    return this.running;
+  }
 }
 
 export default Simulation;
