@@ -75,11 +75,13 @@ let ga = new Genetic(destinations);
 population = ga.evolvePopulation(population);
 
 // Evolve over 100 generations
-for (var x = 0; x <= 100; x++) {
+for (var x = 0; x < 100; x++) {
   (function(delay) {
     setTimeout(function() {
       population = ga.evolvePopulation(population);
       console.log('Best distance: ' + population.getFittest().computeDistance());
+      stats.incrementGenerations();
+      stats.showGenerations();
       stats.incrementTime(0.5);
       stats.showTime();
     }, 500 * delay);

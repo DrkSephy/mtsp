@@ -26,6 +26,9 @@ class Stats {
     this.time += value;
   }
 
+  /**
+   * Updates the Time Elapsed Label on simulation.
+  */
   showTime() {
     let timeLabel = document.getElementById('simulation-time');
     if (this.getTime() % 1 === 0) {
@@ -48,6 +51,14 @@ class Stats {
   */
   incrementGenerations() {
     this.generations++;
+  }
+
+  /**
+   * Updates the Generations Formed Label on simulation.
+  */
+  showGenerations() {
+    let generationsLabel = document.getElementById('simulation-generation') ;
+    generationsLabel.textContent = this.getGenerations();
   }
 
   /**
