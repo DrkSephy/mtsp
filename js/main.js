@@ -66,9 +66,10 @@ let stats = new Stats();
 
 // Generate the initial population
 let population = new Population(destinations, 50, true);
-stats.startingDistance = population.getFittest().computeDistance();
-// console.log(population);
-// console.log('Initial Distance: ' + population.getFittest().computeDistance());
+stats.setStartingDistance(population.getFittest().computeDistance());
+stats.showStartingDistance();
+stats.setOptimalDistance();
+stats.showOptimalDistance();
 
 // Instantiate Genetic Algorithm
 let ga = new Genetic(destinations);
@@ -79,7 +80,9 @@ for (var x = 0; x < 100; x++) {
   (function(delay) {
     setTimeout(function() {
       population = ga.evolvePopulation(population);
-      console.log('Best distance: ' + population.getFittest().computeDistance());
+      stats.setCurrentDistance(population.getFittest().computeDistance());
+      stats.computeOptimalDistance();
+      stats.showOptimalDistance();
       stats.incrementGenerations();
       stats.showGenerations();
       stats.incrementTime(0.5);
