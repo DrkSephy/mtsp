@@ -45,10 +45,10 @@ export function containsObject(obj, array) {
   return false;
 }
 
-export function generateUniqueNumbers(length) {
+export function generateUniqueNumbers(length, max) {
   let arr = [];
   while (arr.length < length) {
-    const randomNumber = Math.ceil(Math.random() * 150);
+    const randomNumber = Math.ceil(Math.random() * max);
     let found = false;
     for (var j = 0; j < arr.length; j++) {
       if (arr[j] == randomNumber) {
