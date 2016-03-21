@@ -7,8 +7,8 @@ class Stats {
   constructor() {
     this.time = 0;
     this.generations = 0;
-    this.startingCode = 0;
-    this.optimalCost = 0;
+    this.startingDistance = 0;
+    this.optimalDistance = 0;
   }
 
   /**
@@ -39,5 +39,21 @@ class Stats {
   */
   incrementGenerations() {
     this.generations++;
+  }
+
+  /**
+   * Gets the starting distance property of Stats.
+   * @returns {number} The starting distance of the simulation.
+  */
+  getStartingDistance() {
+    return this.startingDistance;
+  }
+
+  /**
+   * Gets the optimal distance property of Stats.
+   * @returns {number} The optimal distance of the simulation.
+  */
+  getOptimalDistance() {
+    return this.optimalDistance;
   }
 }
