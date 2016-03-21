@@ -1,9 +1,11 @@
 'use strict';
 
+import Draw from './draw.js';
 import Trip from './trip.js';
 import City from './city.js';
 import Genetic from './genetic.js';
 import Population from './population.js';
+import Simulation from './simulation.js';
 import Destinations from './destinations.js';
 
 // Store destination cities
@@ -51,23 +53,65 @@ destinations.addCity(city19)
 let city20 = new City(160, 20)
 destinations.addCity(city20);
 
+let simulation = new Simulation();
+simulation.attachEventListners();
+
+let draw = new Draw();
+
 // Generate the initial population
 let population = new Population(destinations, 50, true);
+
+// console.log(population);
 console.log('Initial Distance: ' + population.getFittest().computeDistance());
+
+for (var i = 0; i < population.populationSize(); i++) {
+
+  setTimeout(function() {
+    draw.clearCanvas();
+  }, 100 * i);
+
+  for (var destination = 0; destination < destinations.numberOfDestinations(); destination++) {
+    let x = destinations.getCity(destination).x;
+    let y = destinations.getCity(destination).y;
+    setTimeout(function() {
+      draw.drawPoint(x, y);
+    }, 100 * i);
+  }
+  
+  for (var destination = 0; destination < population.getTrip(i).getTripSize(); destination++) {
+    // console.log(population.getTrip(i).getCity(destination));
+    let x = population.getTrip(i).getCity(destination).x;
+    let y = population.getTrip(i).getCity(destination).y;
+    if (destination + 1 < population.getTrip(i).getTripSize()) {
+      let toX = population.getTrip(i).getCity(destination + 1).x;
+      let toY = population.getTrip(i).getCity(destination + 1).y;
+      setTimeout(function() {
+        draw.drawLine(x, y, toX, toY);
+      }, 100 * i);
+    } else {
+      let toX = population.getTrip(i).getCity(0).x;
+      let toY = population.getTrip(i).getCity(0).y;
+      setTimeout(function() {
+        draw.drawLine(x, y, toX, toY);
+      }, 100 * i);
+    }
+  }
+}
+
 
 // Instantiate Genetic Algorithm
 let ga = new Genetic(destinations);
 population = ga.evolvePopulation(population);
-console.log('New distance for the new population: ' + population.getFittest().computeDistance());
+// console.log('New distance for the new population: ' + population.getFittest().computeDistance());
 
-// Evolve over 100 generations
+// // Evolve over 100 generations
 for (var i = 0; i <= 100; i++) {
   population = ga.evolvePopulation(population);
 }
 
-console.log('Final Distance: ' + population.getFittest().computeDistance());
-console.log('Solution: ');
-console.log(population.getFittest());
+// console.log('Final Distance: ' + population.getFittest().computeDistance());
+// console.log('Solution: ');
+// console.log(population.getFittest());
 
 
 
