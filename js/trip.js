@@ -1,6 +1,6 @@
 'use strict';
 
-import {shuffleArray, containsObject} from './utils.js';
+import {shuffleArray, containsObject, generateRandomInt} from './utils.js';
 
 class Trip {
   /**
@@ -14,6 +14,7 @@ class Trip {
     this.trip = [];
     this.fitness = 0;
     this.distance = 0;
+    this.partition = 0;
     if (trip != null) {
       this.trip = trip;
     } else {
@@ -64,18 +65,6 @@ class Trip {
   }
 
   /**
-   * Prints the optimal trip.
-   * @returns {string} The string representation of cities in trip. 
-  */
-  printTrip() {
-    let separator = '|';
-    for(var i = 0; i < this.getTripSize(); i++) {
-      separator += this.getCity(i) + '|';
-    }
-    return separator;
-  }
-
-  /**
    * Generates a randomized trip.
    * @returns {undefined} Shuffles internal class trip.
   */
@@ -84,6 +73,12 @@ class Trip {
       this.setCity(cityIndex, this.destinations.getCity(cityIndex));
     }
     shuffleArray(this.trip);
+
+    // Generate random partition
+    let partition = this.generatePartition();
+
+    // Assign partition
+    this.setPartition(partition);
   }
 
   /**
@@ -95,27 +90,59 @@ class Trip {
     return containsObject(city, this.trip);
   }
 
+  generatePartition() {
+    var max = this.destinations.numberOfDestinations(); // 30 for now
+    var r1 = generateRandomInt(3, max-24); // Between 3 and 6
+    var r2 = generateRandomInt(3, max-24);
+    var r3 = generateRandomInt(3, max-12-r1-r2);
+    var r4 = generateRandomInt(3, max-6-r1-r2-r3);
+    var r5 = max - r1 - r2 - r3 - r4;
+    let partition = [r1, r2, r3, r4, r5];
+    return partition;
+  }
+
+  setPartition(partition) {
+    this.partition = partition;
+  }
+
   /**
    * Computes the total distance of the trip.
    * @returns {number} The distance of the entire trip.
   */
   computeDistance() {
     if (this.distance == 0) {
-      let tripDistance = 0;
-      for(var cityIndex = 0; cityIndex < this.getTripSize(); cityIndex++) {
-        let fromCity = this.getCity(cityIndex);
-        let destinationCity = null;
-        // Get the next destination city if within bounds
-        if (cityIndex + 1 < this.getTripSize()) {
-          destinationCity = this.getCity(cityIndex + 1);
+      let start = 0;
+      let end = 0;
+      let totalDistance = 0;
+      console.log(this.partition);
+      // Loop over each partition
+      for (var partitionIndex = 0; partitionIndex < this.partition.length; partitionIndex++) {
+        // Splice trip together
+        end += this.partition[partitionIndex];
+        let trip = this.trip.slice(start, end);
+        start = end;
+
+        // Compute the distance for this trip
+        for(var cityIndex = 0; cityIndex < trip.length; cityIndex++) {
+          let fromCity = trip[cityIndex];
+          let destinationCity = null;
+          // Get the next destination city if within bounds
+          if (cityIndex + 1 < trip.length) {
+            destinationCity = trip[cityIndex + 1];
+          }
+          // Return to starting position to complete the trip
+          else {
+            destinationCity = trip[0];
+          }
+
+          totalDistance += fromCity.euclideanDistance(destinationCity);
         }
-        // Return to starting position to complete the trip
-        else {
-          destinationCity = this.getCity(0);
-        }
-        tripDistance += fromCity.euclideanDistance(destinationCity);
+        console.log('The distance for this trip is : ' + totalDistance);
+        console.log('The trip is: ');
+        console.log(trip);
       }
-      this.distance = tripDistance;
+
+      this.distance = totalDistance;
     }
 
     return this.distance;
