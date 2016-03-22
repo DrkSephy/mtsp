@@ -18,13 +18,13 @@ class Draw {
    * @param {number} y - The y-coordinate to draw at.
   */
   drawPoint(x, y) {
-    this.ctx.fillRect(x, y, 4, 4);
+    this.ctx.fillRect(x, y, 8, 8);
   }
 
   drawLine(x, y, toX, toY) {
     this.ctx.beginPath();
     this.ctx.moveTo(x, y);
-    this.ctx.lineTo(toX, toY);
+    this.ctx.lineTo(toX + 4, toY + 4);
     this.ctx.stroke();
   }
 
