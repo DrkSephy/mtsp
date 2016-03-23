@@ -1,6 +1,7 @@
 'use strict';
 
-import {shuffleArray, containsObject, generateRandomInt} from './utils.js';
+import clone from 'clone';
+import {shuffleArray, containsObject, generateRandomInt, arrayClone} from './utils.js';
 
 class Trip {
   /**
@@ -79,6 +80,49 @@ class Trip {
 
     // Assign partition
     this.setPartition(partition);
+
+    // Generate ranges for cities owned by each salesman
+    let ranges = [];
+    let end = 0;
+    for (var partitionIndex = 0; partitionIndex < this.partition.length; partitionIndex++) {
+      end += this.partition[partitionIndex];
+      ranges.push(end);
+    }
+
+    // Assign ownerships
+    let trip1 = clone(this.trip.slice(0, ranges[0]));
+    let trip2 = clone(this.trip.slice(ranges[0], ranges[1]));
+    let trip3 = clone(this.trip.slice(ranges[1], ranges[2]));
+    let trip4 = clone(this.trip.slice(ranges[2], ranges[3]));
+    let trip5 = clone(this.trip.slice(ranges[3], ranges[4]));
+
+    for (var i = 0; i < trip1.length; i++) {
+      let city = trip1[i];
+      city.owner = 1;
+    }
+
+    for (var i = 0; i < trip2.length; i++) {
+      let city = trip2[i];
+      city.owner = 2;
+    }
+
+    for (var i = 0; i < trip3.length; i++) {
+      let city = trip3[i];
+      city.owner = 3;
+    }
+
+    for (var i = 0; i < trip4.length; i++) {
+      let city = trip4[i];
+      city.owner = 4;
+    }
+
+    for (var i = 0; i < trip5.length; i++) {
+      let city = trip5[i];
+      city.owner = 5;
+    }
+
+    // Stitch the trips back together
+    this.trip = trip1.concat(trip2).concat(trip3).concat(trip4).concat(trip5);
   }
 
   /**
@@ -91,14 +135,14 @@ class Trip {
   }
 
   generatePartition() {
-    var max = this.destinations.numberOfDestinations(); // 30 for now
-    var r1 = generateRandomInt(3, max-24); // Between 3 and 6
-    var r2 = generateRandomInt(3, max-24);
-    var r3 = generateRandomInt(3, max-12-r1-r2);
-    var r4 = generateRandomInt(3, max-6-r1-r2-r3);
-    var r5 = max - r1 - r2 - r3 - r4;
-    let partition = [r1, r2, r3, r4, r5];
-    return [10, 10, 10, 10, 10];
+    // var max = this.destinations.numberOfDestinations(); // 30 for now
+    // var r1 = generateRandomInt(3, max-24); // Between 3 and 6
+    // var r2 = generateRandomInt(3, max-24);
+    // var r3 = generateRandomInt(3, max-12-r1-r2);
+    // var r4 = generateRandomInt(3, max-6-r1-r2-r3);
+    // var r5 = max - r1 - r2 - r3 - r4;
+    // let partition = [r1, r2, r3, r4, r5];
+    return [30, 30, 30, 30, 30];
     return partition;
   }
 
