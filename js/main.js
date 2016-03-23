@@ -14,9 +14,9 @@ import {generateUniqueNumbers} from './utils.js';
 let destinations = new Destinations();
 
 // Generate destination cities
-let xCoordinates = generateUniqueNumbers(30, 450);
-let yCoordinates = generateUniqueNumbers(30, 450);
-for (var j = 0; j < 30; j++) {
+let xCoordinates = generateUniqueNumbers(150, 450);
+let yCoordinates = generateUniqueNumbers(150, 450);
+for (var j = 0; j < 150; j++) {
   let city = new City(xCoordinates[j], yCoordinates[j]);
   destinations.addCity(city);
 }
@@ -38,10 +38,10 @@ console.log('Initial Distance: ' + population.getFittest().computeDistance());
 console.log(population);
 
 // console.log(population);
-// stats.setStartingDistance(population.getFittest().computeDistance());
-// stats.showStartingDistance();
-// stats.setOptimalDistance();
-// stats.showOptimalDistance();
+stats.setStartingDistance(population.getFittest().computeDistance());
+stats.showStartingDistance();
+stats.setOptimalDistance();
+stats.showOptimalDistance();
 
 // Instantiate Genetic Algorithm
 let ga = new Genetic(destinations);
@@ -54,15 +54,15 @@ for (var x = 0; x < 100; x++) {
 }
 
 console.log('Final solution: ' + population.getFittest().computeDistance());
-console.log(population.getFittest());
+// console.log(population.getFittest());
 // // Evolve over 100 generations
 // for (var x = 0; x < 200; x++) {
 //   (function(delay) {
 //     setTimeout(function() {
 //       population = ga.evolvePopulation(population);
-//       stats.setCurrentDistance(population.getFittest().computeDistance());
-//       stats.computeOptimalDistance();
-//       stats.showOptimalDistance();
+      // stats.setCurrentDistance(population.getFittest().computeDistance());
+      // stats.computeOptimalDistance();
+      // stats.showOptimalDistance();
 //       stats.incrementGenerations();
 //       stats.showGenerations();
 //       stats.incrementTime(0.5);
