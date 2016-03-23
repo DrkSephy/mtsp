@@ -98,6 +98,7 @@ class Trip {
     var r4 = generateRandomInt(3, max-6-r1-r2-r3);
     var r5 = max - r1 - r2 - r3 - r4;
     let partition = [r1, r2, r3, r4, r5];
+    return [10, 10, 10, 10, 10];
     return partition;
   }
 
@@ -107,6 +108,10 @@ class Trip {
 
   getPartition() {
     return this.partition;
+  }
+
+  getTrip() {
+    return this.trip;
   }
 
   /**
