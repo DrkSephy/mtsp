@@ -23,7 +23,7 @@ class Draw {
 
   drawLine(x, y, toX, toY) {
     this.ctx.beginPath();
-    this.ctx.moveTo(x, y);
+    this.ctx.moveTo(x + 4, y + 4);
     this.ctx.lineTo(toX + 4, toY + 4);
     this.ctx.stroke();
   }
