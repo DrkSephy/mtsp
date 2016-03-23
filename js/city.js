@@ -11,6 +11,7 @@ class City {
   constructor(x, y) {
     this.x = x;
     this.y = y;
+    this.owner = null;
   }
 
   /**
@@ -35,6 +36,14 @@ class City {
   */
   getY() {
     return this.y;
+  }
+
+  setOwner(owner) {
+    this.owner = owner;
+  }
+
+  getOwner() {
+    return this.owner;
   }
 
   /**

@@ -1,6 +1,7 @@
 'use strict';
 
-import {shuffleArray, containsObject} from './utils.js';
+import clone from 'clone';
+import {shuffleArray, containsObject, generateRandomInt, arrayClone} from './utils.js';
 
 class Trip {
   /**
@@ -14,6 +15,7 @@ class Trip {
     this.trip = [];
     this.fitness = 0;
     this.distance = 0;
+    this.partition = 0;
     if (trip != null) {
       this.trip = trip;
     } else {
@@ -64,18 +66,6 @@ class Trip {
   }
 
   /**
-   * Prints the optimal trip.
-   * @returns {string} The string representation of cities in trip. 
-  */
-  printTrip() {
-    let separator = '|';
-    for(var i = 0; i < this.getTripSize(); i++) {
-      separator += this.getCity(i) + '|';
-    }
-    return separator;
-  }
-
-  /**
    * Generates a randomized trip.
    * @returns {undefined} Shuffles internal class trip.
   */
@@ -84,6 +74,101 @@ class Trip {
       this.setCity(cityIndex, this.destinations.getCity(cityIndex));
     }
     shuffleArray(this.trip);
+    
+    // Generate random partition
+    let partition = this.generatePartition();
+
+    // Assign partition
+    this.setPartition(partition);
+
+    // Generate ranges for cities owned by each salesman
+    let ranges = [];
+    let end = 0;
+    for (var partitionIndex = 0; partitionIndex < this.partition.length; partitionIndex++) {
+      end += this.partition[partitionIndex];
+      ranges.push(end);
+    }
+
+    // Assign ownerships
+    let trip1 = clone(this.trip.slice(0, ranges[0]));
+    let trip2 = clone(this.trip.slice(ranges[0], ranges[1]));
+    let trip3 = clone(this.trip.slice(ranges[1], ranges[2]));
+    let trip4 = clone(this.trip.slice(ranges[2], ranges[3]));
+    let trip5 = clone(this.trip.slice(ranges[3], ranges[4]));
+
+    for (var i = 0; i < trip1.length; i++) {
+      let city = trip1[i];
+      city.owner = 1;
+    }
+
+    for (var i = 0; i < trip2.length; i++) {
+      let city = trip2[i];
+      city.owner = 2;
+    }
+
+    for (var i = 0; i < trip3.length; i++) {
+      let city = trip3[i];
+      city.owner = 3;
+    }
+
+    for (var i = 0; i < trip4.length; i++) {
+      let city = trip4[i];
+      city.owner = 4;
+    }
+
+    for (var i = 0; i < trip5.length; i++) {
+      let city = trip5[i];
+      city.owner = 5;
+    }
+
+    // Stitch the trips back together
+    this.trip = trip1.concat(trip2).concat(trip3).concat(trip4).concat(trip5);
+  }
+
+  assignPartitions(partition, trip) {
+    // Generate ranges for cities owned by each salesman
+    let ranges = [];
+    let end = 0;
+    for (var partitionIndex = 0; partitionIndex < partition.length; partitionIndex++) {
+      end += partition[partitionIndex];
+      ranges.push(end);
+    }
+
+    // Assign ownerships
+    let trip1 = clone(trip.slice(0, ranges[0]));
+    let trip2 = clone(trip.slice(ranges[0], ranges[1]));
+    let trip3 = clone(trip.slice(ranges[1], ranges[2]));
+    let trip4 = clone(trip.slice(ranges[2], ranges[3]));
+    let trip5 = clone(trip.slice(ranges[3], ranges[4]));
+
+    for (var i = 0; i < trip1.length; i++) {
+      let city = trip1[i];
+      city.owner = 1;
+    }
+
+    for (var i = 0; i < trip2.length; i++) {
+      let city = trip2[i];
+      city.owner = 2;
+    }
+
+    for (var i = 0; i < trip3.length; i++) {
+      let city = trip3[i];
+      city.owner = 3;
+    }
+
+    for (var i = 0; i < trip4.length; i++) {
+      let city = trip4[i];
+      city.owner = 4;
+    }
+
+    for (var i = 0; i < trip5.length; i++) {
+      let city = trip5[i];
+      city.owner = 5;
+    }
+
+    // Stitch the trips back together
+    trip = trip1.concat(trip2).concat(trip3).concat(trip4).concat(trip5);
+    return trip;
   }
 
   /**
@@ -95,27 +180,57 @@ class Trip {
     return containsObject(city, this.trip);
   }
 
+  generatePartition() {
+    return [30, 30, 30, 30, 30];
+  }
+
+  setPartition(partition) {
+    this.partition = partition;
+  }
+
+  getPartition() {
+    return this.partition;
+  }
+
+  getTrip() {
+    return this.trip;
+  }
+
   /**
    * Computes the total distance of the trip.
    * @returns {number} The distance of the entire trip.
   */
   computeDistance() {
     if (this.distance == 0) {
-      let tripDistance = 0;
-      for(var cityIndex = 0; cityIndex < this.getTripSize(); cityIndex++) {
-        let fromCity = this.getCity(cityIndex);
-        let destinationCity = null;
-        // Get the next destination city if within bounds
-        if (cityIndex + 1 < this.getTripSize()) {
-          destinationCity = this.getCity(cityIndex + 1);
+      let start = 0;
+      let end = 0;
+      let totalDistance = 0;
+      // console.log(this.partition);
+      // Loop over each partition
+      for (var partitionIndex = 0; partitionIndex < this.partition.length; partitionIndex++) {
+        // Splice trip together
+        end += this.partition[partitionIndex];
+        let trip = this.trip.slice(start, end);
+        start = end;
+
+        // Compute the distance for this trip
+        for(var cityIndex = 0; cityIndex < trip.length; cityIndex++) {
+          let fromCity = trip[cityIndex];
+          let destinationCity = null;
+          // Get the next destination city if within bounds
+          if (cityIndex + 1 < trip.length) {
+            destinationCity = trip[cityIndex + 1];
+          }
+          // Return to starting position to complete the trip
+          else {
+            destinationCity = trip[0];
+          }
+
+          totalDistance += fromCity.euclideanDistance(destinationCity);
         }
-        // Return to starting position to complete the trip
-        else {
-          destinationCity = this.getCity(0);
-        }
-        tripDistance += fromCity.euclideanDistance(destinationCity);
       }
-      this.distance = tripDistance;
+
+      this.distance = totalDistance;
     }
 
     return this.distance;

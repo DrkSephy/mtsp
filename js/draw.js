@@ -8,6 +8,7 @@ class Draw {
     this.canvas = document.getElementById('grid');
     this.ctx = this.canvas.getContext('2d');
     this.ctx.fillStyle = '#ffffff';
+    this.ctx.lineWidth = 2;
     this.width = 500;
     this.height = 500;
   }
@@ -21,9 +22,10 @@ class Draw {
     this.ctx.fillRect(x, y, 8, 8);
   }
 
-  drawLine(x, y, toX, toY) {
+  drawLine(x, y, toX, toY, strokeColor) {
     this.ctx.beginPath();
-    this.ctx.moveTo(x, y);
+    this.ctx.strokeStyle = strokeColor;
+    this.ctx.moveTo(x + 4, y + 4);
     this.ctx.lineTo(toX + 4, toY + 4);
     this.ctx.stroke();
   }
