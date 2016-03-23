@@ -105,6 +105,10 @@ class Trip {
     this.partition = partition;
   }
 
+  getPartition() {
+    return this.partition;
+  }
+
   /**
    * Computes the total distance of the trip.
    * @returns {number} The distance of the entire trip.
@@ -114,7 +118,7 @@ class Trip {
       let start = 0;
       let end = 0;
       let totalDistance = 0;
-      console.log(this.partition);
+      // console.log(this.partition);
       // Loop over each partition
       for (var partitionIndex = 0; partitionIndex < this.partition.length; partitionIndex++) {
         // Splice trip together
@@ -137,9 +141,9 @@ class Trip {
 
           totalDistance += fromCity.euclideanDistance(destinationCity);
         }
-        console.log('The distance for this trip is : ' + totalDistance);
-        console.log('The trip is: ');
-        console.log(trip);
+        // console.log('The distance for this trip is : ' + totalDistance);
+        // console.log('The trip is: ');
+        // console.log(trip);
       }
 
       this.distance = totalDistance;
