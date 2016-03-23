@@ -73,7 +73,7 @@ class Trip {
       this.setCity(cityIndex, this.destinations.getCity(cityIndex));
     }
     shuffleArray(this.trip);
-
+    
     // Generate random partition
     let partition = this.generatePartition();
 

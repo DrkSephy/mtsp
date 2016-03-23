@@ -29,6 +29,7 @@ class Genetic {
       elitismOffset = 1;
     }
 
+    console.log(newPopulation);
     for (var i = elitismOffset; i < newPopulation.populationSize(); i++) {
       let parent1 = this.tournamentSelection(population);
       let parent2 = this.tournamentSelection(population);
@@ -52,7 +53,7 @@ class Genetic {
   crossover(parent1, parent2) {
     let child = new Trip(this.destinations);
     let startPosition = Math.floor(Math.random() * parent1.getTripSize());
-    let endPosition   = Math.floor(Math.random() * parent2.getTripSize());
+    let endPosition   = Math.floor(Math.random() * parent1.getTripSize());
     let cities = [];
 
     for (var x = 0; x < child.getTripSize(); x++) {
@@ -82,6 +83,9 @@ class Genetic {
       child.setCity(i, cities[i]);
     }
 
+    let partition = child.generatePartition();
+    // console.log('New partition: ' + partition);
+    child.setPartition(partition);
     return child;
   }
 

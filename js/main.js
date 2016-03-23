@@ -32,18 +32,29 @@ let draw = new Draw();
 let stats = new Stats();
 
 // Generate the initial population
-let population = new Population(destinations, 2, true);
-population.getFittest().computeDistance();
+let population = new Population(destinations, 100, true);
+// console.log(population);
+console.log('Initial Distance: ' + population.getFittest().computeDistance());
 console.log(population);
+
+// console.log(population);
 // stats.setStartingDistance(population.getFittest().computeDistance());
 // stats.showStartingDistance();
 // stats.setOptimalDistance();
 // stats.showOptimalDistance();
 
 // Instantiate Genetic Algorithm
-// let ga = new Genetic(destinations);
-// population = ga.evolvePopulation(population);
+let ga = new Genetic(destinations);
+population = ga.evolvePopulation(population);
+// console.log(population);
+console.log('New Distance after one evolution: ' + population.getFittest().computeDistance());
 
+for (var x = 0; x < 100; x++) {
+  population = ga.evolvePopulation(population);
+}
+
+console.log('Final solution: ' + population.getFittest().computeDistance());
+console.log(population.getFittest());
 // // Evolve over 100 generations
 // for (var x = 0; x < 200; x++) {
 //   (function(delay) {
