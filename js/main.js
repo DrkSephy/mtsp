@@ -32,12 +32,8 @@ let draw = new Draw();
 let stats = new Stats();
 
 // Generate the initial population
-let population = new Population(destinations, 10, true);
-// console.log(population);
-console.log('Initial Distance: ' + population.getFittest().computeDistance());
-console.log(population);
+let population = new Population(destinations, 20, true);
 
-// console.log(population);
 stats.setStartingDistance(population.getFittest().computeDistance());
 stats.showStartingDistance();
 stats.setOptimalDistance();
@@ -48,7 +44,7 @@ let ga = new Genetic(destinations);
 population = ga.evolvePopulation(population);
 
 // Evolve over 100 generations
-for (var x = 0; x < 20; x++) {
+for (var x = 0; x < 100; x++) {
   (function(delay) {
     setTimeout(function() {
       population = ga.evolvePopulation(population);
@@ -209,8 +205,6 @@ for (var x = 0; x < 20; x++) {
           }, 500 * delay);
         }
       } 
-
-      console.log(s1);
     }
   })(x);
 }
