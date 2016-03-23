@@ -125,6 +125,52 @@ class Trip {
     this.trip = trip1.concat(trip2).concat(trip3).concat(trip4).concat(trip5);
   }
 
+  assignPartitions(partition, trip) {
+    // Generate ranges for cities owned by each salesman
+    let ranges = [];
+    let end = 0;
+    for (var partitionIndex = 0; partitionIndex < partition.length; partitionIndex++) {
+      end += partition[partitionIndex];
+      ranges.push(end);
+    }
+
+    // Assign ownerships
+    let trip1 = clone(trip.slice(0, ranges[0]));
+    let trip2 = clone(trip.slice(ranges[0], ranges[1]));
+    let trip3 = clone(trip.slice(ranges[1], ranges[2]));
+    let trip4 = clone(trip.slice(ranges[2], ranges[3]));
+    let trip5 = clone(trip.slice(ranges[3], ranges[4]));
+
+    for (var i = 0; i < trip1.length; i++) {
+      let city = trip1[i];
+      city.owner = 1;
+    }
+
+    for (var i = 0; i < trip2.length; i++) {
+      let city = trip2[i];
+      city.owner = 2;
+    }
+
+    for (var i = 0; i < trip3.length; i++) {
+      let city = trip3[i];
+      city.owner = 3;
+    }
+
+    for (var i = 0; i < trip4.length; i++) {
+      let city = trip4[i];
+      city.owner = 4;
+    }
+
+    for (var i = 0; i < trip5.length; i++) {
+      let city = trip5[i];
+      city.owner = 5;
+    }
+
+    // Stitch the trips back together
+    trip = trip1.concat(trip2).concat(trip3).concat(trip4).concat(trip5);
+    return trip;
+  }
+
   /**
    * Checks whether a given city is inside the current trip.
    * @param {object} city - The city to test inclusion.
