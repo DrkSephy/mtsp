@@ -56,17 +56,23 @@ class Genetic {
     let startPosition = Math.min(start, end);
     let endPosition   = Math.max(start, end);
     let cities = [];
-    let fCities = [];
-    let mCount = 0;
-    let fCount = 0;
 
-    // console.log('Start position: ' + startPosition);
-    // console.log('End position: ' + endPosition);
-    // console.log('Mother choromosome');
-    // console.log(parent1);
+    // Cities taken from mother chromosome
+    let motherCities1 = 0;
+    let motherCities2 = 0;
+    let motherCities3 = 0;
+    let motherCities4 = 0;
+    let motherCities5 = 0;
+
+    // Cities taken from father chromosome
+    let fatherCities1 = 0;
+    let fatherCities2 = 0;
+    let fatherCities3 = 0;
+    let fatherCities4 = 0;
+    let fatherCities5 = 0;
+
     for (var x = 0; x < child.getTripSize(); x++) {
       cities.push(null);
-      fCities.push(null);
     }
 
     for (var i = 0; i < child.getTripSize(); i++) {
@@ -76,10 +82,40 @@ class Genetic {
       // End position = 8;
       // Will have cities at index 5, 6, 7
       if ((startPosition < endPosition) && (i > startPosition) && (i < endPosition)) {
+        // console.log('Owned by Salesman: ' + parent1.getCity(i).getOwner());
         cities[i] = parent1.getCity(i);
-        mCount++;
+        let owner = parent1.getCity(i).getOwner();
+
+        if (owner == 1) {
+          motherCities1++
+        }
+
+        if (owner == 2) {
+          motherCities2++;
+        }
+
+        if (owner == 3) {
+          motherCities3++;
+        }
+
+        if (owner == 4) {
+          motherCities4++;
+        }
+
+        if (owner == 5) {
+          motherCities5++;
+        }
+
+        // console.log('City is owned by salesman: ' + parent1.getCity(i).getOwner());
       }
     }
+
+    // console.log('Cities taken from salesman 1: ' + motherCities1);
+    // console.log('Cities taken from salesman 2: ' + motherCities2);
+    // console.log('Cities taken from salesman 3: ' + motherCities3);
+    // console.log('Cities taken from salesman 4: ' + motherCities4);
+    // console.log('Cities taken from salesman 5: ' + motherCities5);
+    // console.log(cities);
 
     for (var i = 0; i < parent2.getTripSize(); i++) {
       // If parent 2 city not already in cities array...
@@ -89,21 +125,58 @@ class Genetic {
           // If the entry is null, we insert here!
           if (cities[j] == null) {
             cities[j] = parent2.getCity(i);
-            fCount++;
+            let owner = parent2.getCity(i).getOwner();
+
+            if (owner == 1) {
+              fatherCities1++
+            }
+
+            if (owner == 2) {
+              fatherCities2++;
+            }
+
+            if (owner == 3) {
+              fatherCities3++;
+            }
+
+            if (owner == 4) {
+              fatherCities4++;
+            }
+
+            if (owner == 5) {
+              fatherCities5++;
+            }
+
             break;
           }
         }
       }
     }
 
+    // console.log('Cities taken from father 1: ' + fatherCities1);
+    // console.log('Cities taken from father 2: ' + fatherCities2);
+    // console.log('Cities taken from father 3: ' + fatherCities3);
+    // console.log('Cities taken from father 4: ' + fatherCities4);
+    // console.log('Cities taken from father 5: ' + fatherCities5);
+    // console.log(cities);
+
+    let partition1 = motherCities1 + fatherCities1;
+    let partition2 = motherCities2 + fatherCities2;
+    let partition3 = motherCities3 + fatherCities3;
+    let partition4 = motherCities4 + fatherCities4;
+    let partition5 = motherCities5 + fatherCities5;
+    let childPartition  = [partition1, partition2, partition3, partition4, partition5];
+
+    // console.log('The new partition for the child will be: ')
+    // console.log(childPartition);
+    // console.log('---------------------------------------');
+
     // Copy all cities into the child
     for (var i = 0; i < child.getTripSize(); i++) {
       child.setCity(i, cities[i]);
     }
 
-    let partition = child.generatePartition();
-    // console.log('New partition: ' + partition);
-    child.setPartition(partition);
+    child.setPartition(childPartition);
     return child;
   }
 
