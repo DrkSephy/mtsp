@@ -2,7 +2,7 @@
 
 import Trip from './trip.js';
 import Population from './population.js';
-import {containsObject} from './utils.js';
+import {containsObject, generateRandomInt} from './utils.js';
 
 class Genetic {
   /**
@@ -29,7 +29,6 @@ class Genetic {
       elitismOffset = 1;
     }
 
-    console.log(newPopulation);
     for (var i = elitismOffset; i < newPopulation.populationSize(); i++) {
       let parent1 = this.tournamentSelection(population);
       let parent2 = this.tournamentSelection(population);
@@ -37,9 +36,9 @@ class Genetic {
       newPopulation.saveTrip(i, child);
     }
 
-    for (var i = elitismOffset; i < newPopulation.populationSize(); i++) {
-      this.mutate(newPopulation.getTrip(i));
-    }
+    // for (var i = elitismOffset; i < newPopulation.populationSize(); i++) {
+    //   this.mutate(newPopulation.getTrip(i));
+    // }
 
     return newPopulation;
   }
@@ -52,29 +51,48 @@ class Genetic {
   */
   crossover(parent1, parent2) {
     let child = new Trip(this.destinations);
-    let startPosition = Math.floor(Math.random() * parent1.getTripSize());
-    let endPosition   = Math.floor(Math.random() * parent1.getTripSize());
+    let start = generateRandomInt(0, parent1.getTripSize() - 1);
+    let end   = generateRandomInt(0, parent1.getTripSize());
+    let startPosition = Math.min(start, end);
+    let endPosition   = Math.max(start, end);
     let cities = [];
+    let fCities = [];
+    let mCount = 0;
+    let fCount = 0;
 
+    // console.log('Start position: ' + startPosition);
+    // console.log('End position: ' + endPosition);
+    // console.log('Mother choromosome');
+    // console.log(parent1);
     for (var x = 0; x < child.getTripSize(); x++) {
       cities.push(null);
+      fCities.push(null);
     }
 
     for (var i = 0; i < child.getTripSize(); i++) {
+      // Gets cities within range
+      // Example:
+      // Start position = 4
+      // End position = 8;
+      // Will have cities at index 5, 6, 7
       if ((startPosition < endPosition) && (i > startPosition) && (i < endPosition)) {
         cities[i] = parent1.getCity(i);
-      }
-
-      else if (startPosition > endPosition) {
-        if (!(i < startPosition && i > endPosition)) {
-          cities[i] = parent1.getCity(i);
-        }
+        mCount++;
       }
     }
 
     for (var i = 0; i < parent2.getTripSize(); i++) {
-      if (!containsObject(cities, parent2.getCity(i))) {
-        cities[i] = parent2.getCity(i);
+      // If parent 2 city not already in cities array...
+      if (!containsObject(parent2.getCity(i), cities)) {
+        // Loop over cities array
+        for (var j = 0; j < cities.length; j++) {
+          // If the entry is null, we insert here!
+          if (cities[j] == null) {
+            cities[j] = parent2.getCity(i);
+            fCount++;
+            break;
+          }
+        }
       }
     }
 
