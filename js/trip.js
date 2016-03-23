@@ -135,15 +135,7 @@ class Trip {
   }
 
   generatePartition() {
-    // var max = this.destinations.numberOfDestinations(); // 30 for now
-    // var r1 = generateRandomInt(3, max-24); // Between 3 and 6
-    // var r2 = generateRandomInt(3, max-24);
-    // var r3 = generateRandomInt(3, max-12-r1-r2);
-    // var r4 = generateRandomInt(3, max-6-r1-r2-r3);
-    // var r5 = max - r1 - r2 - r3 - r4;
-    // let partition = [r1, r2, r3, r4, r5];
     return [30, 30, 30, 30, 30];
-    return partition;
   }
 
   setPartition(partition) {
@@ -190,9 +182,6 @@ class Trip {
 
           totalDistance += fromCity.euclideanDistance(destinationCity);
         }
-        // console.log('The distance for this trip is : ' + totalDistance);
-        // console.log('The trip is: ');
-        // console.log(trip);
       }
 
       this.distance = totalDistance;
