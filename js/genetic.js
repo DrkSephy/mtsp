@@ -36,9 +36,9 @@ class Genetic {
       newPopulation.saveTrip(i, child);
     }
 
-    // for (var i = elitismOffset; i < newPopulation.populationSize(); i++) {
-    //   this.mutate(newPopulation.getTrip(i));
-    // }
+    for (var i = elitismOffset; i < newPopulation.populationSize(); i++) {
+      this.mutate(newPopulation.getTrip(i));
+    }
 
     return newPopulation;
   }
