@@ -14,9 +14,9 @@ import {generateUniqueNumbers} from './utils.js';
 let destinations = new Destinations();
 
 // Generate destination cities
-let xCoordinates = generateUniqueNumbers(150, 450);
-let yCoordinates = generateUniqueNumbers(150, 450);
-for (var j = 0; j < 150; j++) {
+let xCoordinates = generateUniqueNumbers(30, 475);
+let yCoordinates = generateUniqueNumbers(30, 475);
+for (var j = 0; j < 30; j++) {
   let city = new City(xCoordinates[j], yCoordinates[j]);
   destinations.addCity(city);
 }
