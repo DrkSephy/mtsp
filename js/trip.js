@@ -181,7 +181,7 @@ class Trip {
   }
 
   generatePartition() {
-    return [6, 6, 6, 6, 6];
+    return [30, 30, 30, 30, 30];
   }
 
   setPartition(partition) {
