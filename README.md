@@ -2,6 +2,8 @@
 
 A JavaScript Implementation of the Multiple Traveling Salesperson problem.
 
+![Simulation](img/50cities.png)
+
 ## Installation
 
 ```bash
